@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,6 +21,8 @@ import {
 } from "./ui/select";
 import { subjects } from "@/constants";
 import { Textarea } from "./ui/textarea";
+import { createCompanion } from "@/lib/actions/companion.actions";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Companion is required" }),
@@ -29,7 +30,7 @@ const formSchema = z.object({
   topic: z.string().min(1, { message: "Topic is required" }),
   voice: z.string().min(1, { message: "Voice is required" }),
   style: z.string().min(1, { message: "Style is required" }),
-  duration: z.number().min(1, { message: "Duration is required" }),
+  duration: z.coerce.number().min(1, { message: "Duration should be greater than or equals to 1" }),
 });
 
 const CompanionForm = () => {
@@ -45,8 +46,15 @@ const CompanionForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const companion = await createCompanion(values)
+    if (companion) {
+      redirect(`/companions/${companion.id}`)
+    }
+    else {
+      console.log("Failed to create companion")
+      redirect('/')
+    }
   };
 
   return (
@@ -180,6 +188,7 @@ const CompanionForm = () => {
                   type="number"
                   placeholder="15"
                   {...field}
+                  // onChange={(e) => field.onChange(e.target.valueAsNumber)}
                   className="input"
                 />
               </FormControl>
