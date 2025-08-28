@@ -26,7 +26,7 @@ const CompanionCard = ({id, name, topic, subject, duration, color}: CompanionCar
             <span className="text-sm">{duration} mins duration</span>
         </div>
 
-        <Link href={`/companion/${id}`} className="w-full">
+        <Link href={`/companions/${id}`} className="w-full">
         <button className="btn-primary w-full justify-center">Launch Lesson</button>
         </Link>
     </article>
