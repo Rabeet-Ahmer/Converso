@@ -11,17 +11,19 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface CompanionsListProps {
+  title?: string
   companions?: Companion[];
   classNames?: string;
 }
 
 const CompanionsList = ({
+  title,
   companions,
   classNames,
 }: CompanionsListProps) => {
   return (
     <article className={cn("companion-list", classNames)}>
-      <h2 className="font-bold text-3xl">Recently Completed Lessons</h2>
+      <h2 className="font-bold text-3xl">{title}</h2>
       <Table>
         <TableHeader>
           <TableRow>
