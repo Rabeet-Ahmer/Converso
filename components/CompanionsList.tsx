@@ -36,7 +36,7 @@ const CompanionsList = ({
           {companions?.map(({ id, subject, name, topic, duration }) => (
             <TableRow key={id}>
               <TableCell>
-                <Link href={`/companion/${id}`}>
+                <Link href={`/companions/${id}`}>
                   <div className="flex gap-2 items-center">
                     <div
                       className="flex items-center justify-center size-[72px] rounded-lg max-md:hidden"
@@ -51,7 +51,7 @@ const CompanionsList = ({
                     </div>
                     <div className="flex flex-col items-start gap-2">
                       <h3 className="text-2xl font-bold">{name}</h3>
-                      <p className="text-lg">Topic: {topic}</p>
+                      <p className="text-lg truncate max-w-100">Topic: {topic}</p>
                     </div>
                   </div>
                 </Link>

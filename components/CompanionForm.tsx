@@ -35,7 +35,7 @@ const formSchema = z.object({
 
 const CompanionForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as any,
     defaultValues: {
       name: "",
       subject: "",
@@ -45,6 +45,8 @@ const CompanionForm = () => {
       duration: 15,
     },
   });
+
+  const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const companion = await createCompanion(values)
@@ -196,7 +198,7 @@ const CompanionForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full cursor-pointer">
+        <Button type="submit" disabled={isLoading} className="w-full cursor-pointer">
           Build your companion
         </Button>
       </form>
