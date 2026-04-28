@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import NavItems from "./NavItems";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, Show, UserButton } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -26,14 +26,14 @@ const NavBar = () => {
           <Link href={"/companions/new"}>Build a new companion</Link>
         </button>
         <NavItems />
-        <SignedOut>
+        <Show when="signed-out">
           <SignInButton>
             <button className="btn-signin">Sign In</button>
           </SignInButton>
-        </SignedOut>
-        <SignedIn>
+        </Show>
+        <Show when="signed-in">
           <UserButton />
-        </SignedIn>
+        </Show>
       </div>
 
       {/* Mobile Hamburger Button */}
@@ -58,16 +58,16 @@ const NavBar = () => {
               <Image src={"/icons/plus.svg"} alt="plus" width={12} height={12} />
               <Link href={"/companions/new"}>Build a new companion</Link>
             </button>
-            <SignedOut>
+            <Show when="signed-out">
               <SignInButton>
                 <button className="btn-signin w-full justify-center">Sign In</button>
               </SignInButton>
-            </SignedOut>
-            <SignedIn>
+            </Show>
+            <Show when="signed-in">
               <div className="flex justify-center">
                 <UserButton />
               </div>
-            </SignedIn>
+            </Show>
           </div>
         </div>
       )}
